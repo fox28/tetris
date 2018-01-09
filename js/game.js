@@ -193,5 +193,5 @@ var Game = function () {
     this.down = down;
     this.left = left;
     this.right = right;
-    this.space = function () {while(down()){}}
+    this.fall = function () { while(down()); }
 }

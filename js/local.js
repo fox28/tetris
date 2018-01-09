@@ -14,8 +14,8 @@ var Local = function () {
                 game.down();
             }else if(ev.keyCode == 37) {// left
                 game.left();
-            }else if(ev.keyCode == 32) {// space
-                game.space();
+            }else if(ev.keyCode == 32) {// fall
+                game.fall();
             }
         }
     }
