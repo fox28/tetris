@@ -1,6 +1,6 @@
 
 var Local = function () {
-    // 游戏对象
+    // 创建游戏对象
     var game ;
 
     // 绑定键盘事件
@@ -22,6 +22,8 @@ var Local = function () {
 
     var start = function () {
         game = new Game();
+
+        // 创建数组对象，元素是div标签的DOM
         var doms = {
             gameDiv:document.getElementById('game'),
             nextDiv:document.getElementById('next')

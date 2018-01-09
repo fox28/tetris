@@ -103,41 +103,53 @@ var Game = function () {
         }
     }
 
+    // 核对是否可以移动（下移，翻转等）
+    var checkData = function (pos) {
+        for(var i=0; i<current.data.length; i++) {
+            for(var j=0; j<current.data[i].length; j++) {
+                if(current.data[i][j] != 0) {
+                    if(!checkDot(pos, i, j)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     // 检查（移动后的）点是否合法
     var checkDot = function (pos, x, y) {
-        if(pos.x+x<0){ // 向上越界
-            return false;
-        }else if(pos.x+x >=gameData.length){ // 向下越界
-            return false;
-        }else if(pos.y+y<0){ // 向左越界
-            return false;
-        }else if(pos.y+y >=gameData[1].length){ // 向右越界
+
+        // 简写 用 ||
+        if(pos.x+x<0 || pos.x+x >=gameData.length || pos.y+y<0 || pos.y+y >=gameData[1].length){
             return false;
         }else if(gameData[pos.x+x][pos.y+y] == 1) { // 已有降落方块
             return false;
         }else {
             return true;
         }
-
-        // 简写 用 ||
     }
 
     var down = function () {
-        clearData();
-        current.down();
-        // current.origin.x += 1;
-        setData();
-        refreshDiv(gameData, gameDivArr);
+        if(current.isDown(checkData)) {
+            clearData();
+            current.down();
+            setData();
+            refreshDiv(gameData, gameDivArr);
+        }
     }
 
     var init = function (doms) {
 
+        // 获得game和next的div标签的DOM
         gameDiv = doms.gameDiv;
         nextDiv = doms.nextDiv;
+
         // 初始化div的二维数组
         initDiv(gameDiv,gameData,gameDivArr);
         initDiv(nextDiv,nextData, nextDivArr);
 
+        // 实例化方块
         current = new Square();
         next = new Square();
 
@@ -147,6 +159,7 @@ var Game = function () {
         setData()
 
 
+        // 刷新数据
         refreshDiv(current.data, nextDivArr);
         refreshDiv(gameData, gameDivArr);
     }

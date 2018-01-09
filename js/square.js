@@ -17,3 +17,10 @@ var Square = function () {
 Square.prototype.down  = function () {
     this.origin.x += 1;
 }
+
+Square.prototype.isDown = function (checkData) {
+    var test = {};
+    test.x = this.origin.x + 1;
+    test.y = this.origin.y;
+    return checkData(test);
+}
