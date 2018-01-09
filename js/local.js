@@ -7,8 +7,10 @@ var Local = function () {
     var bindKeyEvent = function () {
         document.onkeydown = function (ev) {
             if(ev.keyCode == 38) {// up
-
+                console.log("键盘绑定事件38")
+                game.rotate();
             }else if(ev.keyCode == 39) {// right
+                console.log("键盘绑定事件39")
                 game.right();
             }else if(ev.keyCode == 40) {// down
                 game.down();

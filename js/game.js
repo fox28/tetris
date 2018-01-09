@@ -104,10 +104,10 @@ var Game = function () {
     }
 
     // 核对是否可以移动（下移，翻转等）
-    var checkData = function (pos) {
-        for(var i=0; i<current.data.length; i++) {
-            for(var j=0; j<current.data[i].length; j++) {
-                if(current.data[i][j] != 0) {
+    var checkData = function (pos, data) {
+        for(var i=0; i<data.length; i++) {
+            for(var j=0; j<data[i].length; j++) {
+                if(data[i][j] != 0) {
                     if(!checkDot(pos, i, j)) {
                         return false;
                     }
@@ -163,6 +163,16 @@ var Game = function () {
         }
     }
 
+    // 旋转
+    var rotate = function () {
+        if(current.isRotate(checkData)) {
+            clearData();
+            current.rotate();
+            setData();
+            refreshDiv(gameData,gameDivArr);
+        }
+    }
+
     var init = function (doms) {
 
         // 获得game和next的div标签的DOM
@@ -194,4 +204,5 @@ var Game = function () {
     this.left = left;
     this.right = right;
     this.fall = function () { while(down()); }
+    this.rotate = rotate;
 }
