@@ -130,10 +130,34 @@ var Game = function () {
         }
     }
 
+    // 下移
     var down = function () {
         if(current.isDown(checkData)) {
             clearData();
             current.down();
+            setData();
+            refreshDiv(gameData, gameDivArr);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    // 左移
+    var left = function () {
+        if(current.isLeft(checkData)) {
+            clearData();
+            current.left();
+            setData();
+            refreshDiv(gameData, gameDivArr);
+        }
+    }
+
+    // 右移
+    var right = function () {
+        if(current.isRight(checkData)) {
+            clearData();
+            current.right();
             setData();
             refreshDiv(gameData, gameDivArr);
         }
@@ -167,4 +191,7 @@ var Game = function () {
     // 导出API
     this.init = init;
     this.down = down;
+    this.left = left;
+    this.right = right;
+    this.space = function () {while(down()){}}
 }

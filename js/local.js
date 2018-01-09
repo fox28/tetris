@@ -9,13 +9,13 @@ var Local = function () {
             if(ev.keyCode == 38) {// up
 
             }else if(ev.keyCode == 39) {// right
-
+                game.right();
             }else if(ev.keyCode == 40) {// down
                 game.down();
             }else if(ev.keyCode == 37) {// left
-
+                game.left();
             }else if(ev.keyCode == 32) {// space
-
+                game.space();
             }
         }
     }
