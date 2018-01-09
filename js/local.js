@@ -1,0 +1,38 @@
+
+var Local = function () {
+    // 游戏对象
+    var game ;
+
+    // 绑定键盘事件
+    var bindKeyEvent = function () {
+        document.onkeydown = function (ev) {
+            if(ev.keyCode == 38) {// up
+
+            }else if(ev.keyCode == 39) {// right
+
+            }else if(ev.keyCode == 40) {// down
+                game.down();
+            }else if(ev.keyCode == 37) {// left
+
+            }else if(ev.keyCode == 32) {// space
+
+            }
+        }
+    }
+
+    var start = function () {
+        game = new Game();
+        var doms = {
+            gameDiv:document.getElementById('game'),
+            nextDiv:document.getElementById('next')
+        }
+
+        game.init(doms)
+
+        // 启动绑定键盘键的事件
+        bindKeyEvent();
+    }
+
+    // 导出API
+    this.start = start ;
+}
