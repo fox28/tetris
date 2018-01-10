@@ -184,17 +184,15 @@ var Game = function () {
         initDiv(nextDiv,nextData, nextDivArr);
 
         // 实例化方块
-        current = new Square();
-        next = new Square();
+        current = SquareFactory.prototype.make(2,2);
+        next = SquareFactory.prototype.make(3,3);
 
-        current.origin.x = 10;
-        current.origin.y = 5;
 
         setData()
 
 
         // 刷新数据
-        refreshDiv(current.data, nextDivArr);
+        refreshDiv(next.data, nextDivArr);
         refreshDiv(gameData, gameDivArr);
     }
 

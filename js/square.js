@@ -16,34 +16,6 @@ var Square = function () {
 
     // 方向
     this.dir = 0;
-
-    // 三位数组，枚举
-    this.rotates = [
-        [
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-            [0, 2, 0, 0]
-        ],
-        [
-            [0, 0, 0, 0],
-            [2, 2, 2, 2],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ],
-        [
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-            [0, 2, 0, 0]
-        ],
-        [
-            [0, 0, 0, 0],
-            [2, 2, 2, 2],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ]
-    ];
 }
 
 // 下移
@@ -94,11 +66,6 @@ Square.prototype.rotate  = function (num) {
         for(var j=0; j<this.data[i].length; j++) {
             this.data[i][j] = this.rotates[this.dir][i][j];
         }
-        // for(var i=0; i<this.data.length; i++) {
-        //     for(var j=0; i<this.data[i].length; j++) {
-        //         this.data[i][j] = this.rotates[this.dir][i][j];
-        //     }
-        // }
     }
 
 
