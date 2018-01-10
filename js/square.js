@@ -94,6 +94,11 @@ Square.prototype.rotate  = function (num) {
         for(var j=0; j<this.data[i].length; j++) {
             this.data[i][j] = this.rotates[this.dir][i][j];
         }
+        // for(var i=0; i<this.data.length; i++) {
+        //     for(var j=0; i<this.data[i].length; j++) {
+        //         this.data[i][j] = this.rotates[this.dir][i][j];
+        //     }
+        // }
     }
 
 
