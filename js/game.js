@@ -184,7 +184,7 @@ var Game = function () {
         initDiv(nextDiv,nextData, nextDivArr);
 
         // 实例化方块
-        current = SquareFactory.prototype.make(2,2);
+        current = SquareFactory.make(2,2);
         next = SquareFactory.prototype.make(3,3);
 
 

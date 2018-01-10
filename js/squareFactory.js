@@ -235,14 +235,13 @@ SquareFactory.prototype.make = function (index, dir) {
     index += 1;
     switch (index){
         case 1:
-            s = new Square1;
+            s = Square1;
             break;
         case 2:
-            s = new Square2;
+            s = Square2;
             break;
         case 3:
-            console.log("断点2")
-            s = new Square3;
+            s = Square3;
             break;
         case 4:
             s = new Square4;
@@ -267,7 +266,6 @@ SquareFactory.prototype.make = function (index, dir) {
     // 设置旋转
     s.rotate(dir);
 
-    console.log(s.data.join('-'))
     return s;
 }
 
