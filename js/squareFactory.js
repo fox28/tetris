@@ -235,13 +235,13 @@ SquareFactory.prototype.make = function (index, dir) {
     index += 1;
     switch (index){
         case 1:
-            s = Square1;
+            s = new Square1;
             break;
         case 2:
-            s = Square2;
+            s = new Square2;
             break;
         case 3:
-            s = Square3;
+            s = new Square3;
             break;
         case 4:
             s = new Square4;
