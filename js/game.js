@@ -173,6 +173,85 @@ var Game = function () {
         }
     }
 
+    /**
+     * 已经降落的方块固定在底部：gameData元素设为1，改变颜色
+     * 过程：将current.data 通过原点对应gameData的数据，2变为1
+     */
+    var fixed = function () {
+
+        for(var i=0; i<current.data.length; i++) {
+            for(var j=0; j<current.data[i].length; j++) {
+                if(current.data[i][j] == 2) {
+                    gameData[current.origin.x+i][current.origin.y+j] = 1;
+                }
+            }
+        }
+        refreshDiv(gameData,gameDivArr)
+    }
+
+    /**
+     * 生成下一个方块
+     * @param type  类型
+     * @param dir   方向
+     */
+    var performNext = function (type, dir) {
+        current = next;
+        setData();
+        next = SquareFactory.prototype.make(type, dir);
+
+        // 刷新数据
+        refreshDiv(gameData, gameDivArr);
+        refreshDiv(next.data, nextDivArr);
+    }
+
+    /**
+     * 消行
+     * 从下面开始检查每一行有没有满行，若否，标志位为false
+     * 若clear为true，上面每行下移，第一行置0 i++
+     */
+    var checkClearRow = function () {
+        for(var i=gameData.length-1; i>=0; i--) {
+            var clear = true;
+            for(var j=0; j<gameData[i].length; j++) {
+                if(gameData[i][j] != 1) {
+                    clear =false;
+                    break;
+                }
+            }
+
+            // 若clear为true，上面每行下移，第一行置0 i++
+            if(clear) {
+                for(var m=i; m>0; m--) {
+                    for(var n=0; n<gameData[m].length; n++) {
+                        gameData[m][n] = gameData[m-1][n];
+                    }
+                }
+                // 第一行置0
+                for(var n=0; n<gameData[0].length; n++) {
+                    gameData[0][n] = 0;
+                }
+                i++;
+            }
+        }
+    }
+
+    /**
+     * 核对游戏是否结束
+     * 如果第2行（index=1）不为空，游戏结束
+     * @returns {boolean}
+     */
+    var checkGameOver = function () {
+        // 标志位
+        var over = false;
+        for(var i=0; i<gameData[0].length; i++) {
+            if(gameData[1][i] == 1) {
+                over = true;
+                break;
+            }
+        }
+        return over ;
+    }
+
     var init = function (doms) {
 
         // 获得game和next的div标签的DOM
@@ -203,4 +282,8 @@ var Game = function () {
     this.right = right;
     this.fall = function () { while(down()); }
     this.rotate = rotate;
+    this.fixed = fixed;
+    this.checkGameOver = checkGameOver;
+    this.performNext = performNext;
+    this.checkClearRow = checkClearRow;
 }

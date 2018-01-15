@@ -1,7 +1,12 @@
-
+/**
+ * 2.8 功能：自动降落，底部变色，自动下一个，消行，游戏结束
+ * @constructor
+ */
 var Local = function () {
     // 创建游戏对象
     var game ;
+
+    var timer;
 
     // 绑定键盘事件
     var bindKeyEvent = function () {
@@ -22,6 +27,35 @@ var Local = function () {
         }
     }
 
+    var stop = function () {
+        if(timer) {
+            clearInterval(timer);
+            timer = null
+        }
+        document.onkeydown = null;
+    }
+
+
+    var generateDir = function () {
+        return Math.ceil(Math.random()*4) -1;
+    };
+    var generateType = function () {
+        return Math.ceil(Math.random()*7) - 1;
+    };
+
+    var move = function () {
+        if(!game.down()){
+            game.fixed(); // 底部变色
+            game.checkClearRow();
+            var gameover = game.checkGameOver();
+            if(gameover) {
+                stop();
+            }else {
+                game.performNext(generateType(), generateDir())
+            }
+
+        }
+    };
     var start = function () {
         game = new Game();
 
@@ -32,6 +66,8 @@ var Local = function () {
         }
 
         game.init(doms)
+
+        timer = setInterval(move, 200);
 
         // 启动绑定键盘键的事件
         bindKeyEvent();
