@@ -222,10 +222,9 @@ var Game = function () {
             // 若clear为true，上面每行下移，第一行置0 i++
             if(clear) {
                 for(var m=i; m>0; m--) {
-                    gameData[m] = gameData[m-1];
-                    // for(var n=0; n<gameData[m].length; n++) {
-                    //     gameData[m][n] = gameData[m-1][n];
-                    // }
+                    for(var n=0; n<gameData[m].length; n++) {
+                        gameData[m][n] = gameData[m-1][n];
+                    }
                 }
                 // 第一行置0
                 for(var n=0; n<gameData[0].length; n++) {
