@@ -39,6 +39,11 @@ var Game = function () {
     // game, next 的container
     var gameDiv;
     var nextDiv;
+    var timeDiv;
+    var scoreDiv;
+    var resultDiv;
+
+    var score = 0;  // 分数
 
 
     // 当前方块
@@ -210,6 +215,7 @@ var Game = function () {
      * 若clear为true，上面每行下移，第一行置0 i++
      */
     var checkClearRow = function () {
+        var rowNum = 0;
         for(var i=gameData.length-1; i>=0; i--) {
             var clear = true;
             for(var j=0; j<gameData[i].length; j++) {
@@ -221,6 +227,7 @@ var Game = function () {
 
             // 若clear为true，上面每行下移，第一行置0 i++
             if(clear) {
+                rowNum += 1;
                 for(var m=i; m>0; m--) {
                     for(var n=0; n<gameData[m].length; n++) {
                         gameData[m][n] = gameData[m-1][n];
@@ -233,6 +240,7 @@ var Game = function () {
                 i++;
             }
         }
+        return rowNum;
     }
 
     /**
@@ -252,27 +260,64 @@ var Game = function () {
         return over ;
     }
 
-    var init = function (doms) {
+    /**
+     * 设置时间
+     * @param time
+     */
+    var setTime = function (time) {
+        timeDiv.innerHTML = time;
+    }
+
+    /**
+     * 设置分数
+     * @param rowNum 消去的行数
+     */
+    var setScore = function (rowNum) {
+        var temp;
+        switch (rowNum) {
+            case 1:
+                temp = 10;
+                break;
+            case 2:
+                temp = 30;
+                break;
+            case 3:
+                temp = 60;
+                break;
+            case 4:
+                temp = 100;
+                break;
+        }
+        score += temp;
+        scoreDiv.innerHTML = score;
+    }
+
+    var showResult = function (isWin) {
+        if(isWin) {
+            resultDiv.innerHTML = "你赢了！"
+        }else {
+            resultDiv.innerHTML = "你输了。。。"
+        }
+    }
+
+    var init = function (doms, type, dir) {
 
         // 获得game和next的div标签的DOM
         gameDiv = doms.gameDiv;
         nextDiv = doms.nextDiv;
+        timeDiv = doms.timeDiv;
+        scoreDiv = doms.scoreDiv;
+        resultDiv = doms.resultDiv;
 
         // 初始化div的二维数组
         initDiv(gameDiv,gameData,gameDivArr);
         initDiv(nextDiv,nextData, nextDivArr);
 
         // 实例化方块
-        current = SquareFactory.prototype.make(2,2);
-        next = SquareFactory.prototype.make(3,3);
-
-
-        setData()
-
+        next = SquareFactory.prototype.make(type,dir);
 
         // 刷新数据
         refreshDiv(next.data, nextDivArr);
-        refreshDiv(gameData, gameDivArr);
     }
 
     // 导出API
@@ -286,4 +331,8 @@ var Game = function () {
     this.checkGameOver = checkGameOver;
     this.performNext = performNext;
     this.checkClearRow = checkClearRow;
+    this.setData =setData;
+    this.setTime = setTime;
+    this.setScore = setScore;
+    this.showResult = showResult;
 }
