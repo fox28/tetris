@@ -300,6 +300,11 @@ var Game = function () {
         }
     }
 
+    /**
+     * 实现功能：插入干扰行方块
+     * 将rowArr游戏矩阵插入到gameData的底部，原有数据上移
+     * @param rowArr
+     */
     var insertExtraRow = function (rowArr) {
         var length01 = gameData.length;
         var length02 = rowArr.length;
