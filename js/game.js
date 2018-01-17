@@ -300,6 +300,30 @@ var Game = function () {
         }
     }
 
+    var insertExtraRow = function (rowArr) {
+        var length01 = gameData.length;
+        var length02 = rowArr.length;
+
+        // 原有数据上移 length02 行
+        for(var i=0; i<length01 - length02; i++) {
+            gameData[i] = gameData[i + length02];
+        }
+
+        //rowArr的数据插在底部
+        for(var i=0; i<length02; i++) {
+            gameData[length01 - length02 + i] = rowArr[i];
+        }
+
+        // 校正原点
+        current.origin.x -= length02;
+        if(current.origin.x < 0) {
+            current.origin.x = 0;
+        }
+
+        // 刷新数据
+        refreshDiv(gameData, gameDivArr);
+    }
+
     var init = function (doms, type, dir) {
 
         // 获得game和next的div标签的DOM
@@ -335,4 +359,5 @@ var Game = function () {
     this.setTime = setTime;
     this.setScore = setScore;
     this.showResult = showResult;
+    this.insertExtraRow = insertExtraRow;
 }

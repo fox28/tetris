@@ -68,8 +68,25 @@ var Local = function () {
             time+=1;
             game.setTime(time);
         }
+
     };
 
+    /**
+     * 产生干扰行的游戏矩阵
+     * @param lineNum 行数
+     */
+    var generateInterferenceRows = function (lineNum) {
+        var rowArr = [];
+        for(var i=0; i<lineNum; i++) {
+            var row = [];
+            for(var j=0; j<10; j++) {
+                // row[j] = Math.ceil( Math.random()*2 ) - 1;
+                row.push( Math.ceil(Math.random()*2) -1);
+            }
+            rowArr.push(row);
+        }
+        return rowArr;
+    };
     /**
      * 自动降落的方法
      * 同时会调用方块降落底部变色方法, 消行，生成下一个方块，判断游戏是否结束等方法
@@ -84,6 +101,10 @@ var Local = function () {
             var rowNum = game.checkClearRow();
             if(rowNum) {
                 game.setScore(rowNum); // 设置分数
+                if(rowNum == 2) {
+                    game.insertExtraRow(generateInterferenceRows(1));
+                }
+
             }
             var gameover = game.checkGameOver();
             if(gameover) {
